@@ -1,0 +1,1 @@
+# spy_alias fun little app that imitates a person secretly using alias when the app interrogates the person repetitively until they give their real name after a number of times equal to resistance value
