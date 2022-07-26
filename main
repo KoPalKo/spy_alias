@@ -1,0 +1,89 @@
+#include <iostream>
+#include <string>
+
+
+using namespace std;
+
+class Person {
+public:
+	Person(const char *name = "nobody");
+	virtual ~Person() = default;
+	virtual void identity() const;
+	virtual void interrogate();
+private:
+	std::string name;
+};
+
+Person::Person(const char* namea)
+{
+	name = namea;
+}
+
+void Person::identity() const
+{
+	cout << "My name is: " << name << endl;
+}
+
+void Person::interrogate()
+{
+}
+
+class Spy : public Person {
+public:
+	Spy(string a, string b, int c) { name = a; alias = b; resistance = c; };
+	void set_identity(const char* alias);
+	virtual void identity() const;
+	virtual void interrogate();
+private:
+	std::string name;
+	std::string alias;
+	int resistance;
+};
+
+void Spy::set_identity(const char* aliasa)
+{
+	alias = aliasa;
+}
+
+void Spy::identity() const
+{
+	if (resistance > 0) { cout << "My name is : " << alias << endl; }
+	else { cout << "My name is : " << name << endl << "My alias is: " << alias << endl; }
+}
+
+void Spy::interrogate()
+{
+	if (resistance > 0) { resistance--; }
+	
+}
+
+int main(int argc, char** argv) {
+
+	Person agent("James Bond");
+	Spy spy("Emilio Largo", "William Johnson", 3);
+	Spy spy2("Ernst Blofield", "John Keats", 5);
+
+	std::cout << std::endl << "Nice to meet you. ";
+	agent.identity();
+
+	for (int i = 0; i < 6; ++i) {
+		std::cout << "Who are you?" << std::endl;
+		spy.interrogate();
+		spy.identity();
+	}
+	spy.set_identity("Bill Munny");
+	spy.identity();
+
+	std::cout << std::endl << "Nice to meet you. ";
+	agent.identity();
+
+	for (int i = 0; i < 6; ++i) {
+		std::cout << "Who are you?" << std::endl;
+		spy2.interrogate();
+		spy2.identity();
+	}
+
+	return 0;
+}
+
+
